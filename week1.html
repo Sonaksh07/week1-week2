@@ -1,0 +1,201 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Art Gallery</title>
+    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+    <style>
+        body {
+            background-color: #95c511;
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+
+        ..gallery {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 20px;
+            justify-items: center;
+        }
+
+        
+        .artwork {
+            position: relative;
+            width: 100%;
+            border-radius: 15px;
+            overflow: hidden;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            transition: transform 0.5s ease-in-out;
+            cursor: pointer;
+            opacity: 0; /* Initially set opacity to 0 */
+            animation: fadeIn 1s forwards; /* Apply fade-in animation */
+        }
+
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+            }
+            to {
+                opacity: 1;
+            }
+        }
+
+        .artwork:hover {
+            transform: scale(1.05);
+        }
+
+        .artwork img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            border-radius: 15px;
+        }
+
+        .artwork .overlay {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.5);
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            opacity: 0;
+            transition: opacity 0.5s;
+            border-radius: 15px;
+        }
+
+        .artwork:hover .overlay {
+            opacity: 1;
+        }
+
+        .artwork .overlay h2 {
+            color: #fff;
+            font-size: 1.5rem;
+            margin-bottom: 0.5rem;
+        }
+
+        .artwork .overlay p {
+            color: #fff;
+            font-size: 1rem;
+            margin-bottom: 0;
+        }
+
+        .message {
+            text-align: center;
+            color: #ffffff;
+            font-size: 18px;
+            margin-top: 20px;
+        }
+
+        .error {
+            color: #ff0000;
+        }
+
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+            }
+            to {
+                opacity: 1;
+            }
+        }
+
+        .artwork:hover .overlay {
+            opacity: 1;
+        }
+
+        .artwork .overlay h2 {
+            color: #fff;
+            font-size: 1.5rem;
+            margin-bottom: 0.5rem;
+        }
+
+        .artwork .overlay p {
+            color: #fff;
+            font-size: 1rem;
+            margin-bottom: 0;
+        }
+
+        .message {
+            text-align: center;
+            color: #ffffff;
+            font-size: 18px;
+            margin-top: 20px;
+        }
+
+        .error {
+            color: #ff0000;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="container">
+        <h1 class="text-4xl font-bold text-white text-center my-8">Art Gallery</h1>
+        <div class="gallery">
+            <div class="artwork" onclick="showArtInfo('MIT Manipal ', 'A stunning piece of art.')">
+                <img src="https://bl-i.thgim.com/public/companies/5ihom5/article66989383.ece/alternates/LANDSCAPE_1200/MIT%20MAHE%20MANIPAL.jpg" alt="MIT Manipal">
+                <div class="overlay">
+                    <h2>MIT Manipal</h2>
+                    <p>Manipal Institute of Technology is a private engineering school under Manipal Academy of Higher Education in India.
+
+                        The Manipal Institute of Technology (MIT), Manipal, was established in 1957 as one of the first self-financing engineering colleges in the country. MIT is a constituent unit of Manipal Academy of Higher Education MAHE Manipal, Karnataka, India.
+                        
+                        The institute has 18 academic departments and awards undergraduate, graduate, and postgraduate degrees.[1] The MIT campus is spread over 313 acres of what once used to be a desolate plateau of hard, laterite rock in south Karnataka's Udupi district.</p>
+                </div>
+            </div>
+            <div class="artwork" onclick="showArtInfo('Artwork 2', 'Another amazing creation.')">
+                 <img src="data:image/jpeg;base64,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">
+                <div class="overlay">
+                    <h2>ISTE Manipal</h2>
+                    <p>ISTE Manipal is one of the branches of the nationwide Indian Society of Technical Education. It is Manipal's most reputed and esteemed multi-disciplinary technical club.
+                        We aim to bring together students with a keen enthusiasm in tech fields, and nurture skills in several domains by organising events, workshops and providing opportunities and guidance to learn and grow in the world of tech.
+                        Being a multi-disciplinary club, we have members for domains in some of the primary fields of technical education. The management team looks after the overall functioning of the club and its events.
+Our Domains
+
+                    </p>
+                </div>
+            </div>
+            <div class="artwork" onclick="showArtInfo('Artwork 3', 'A perfect Leader.')">
+                <img src="https://www.manipal.edu/content/dam/manipal/mu/mit/images/profile/arana-director-mit_v2.jpg" alt="Anil Rana">
+                <div class="overlay">
+                    <h2>Anil Rana</h2>
+                    <p>Dr Anil Rana has over 30 years of experience in the Industry and Academics. Prior to his academic service he served as a Commander in the engineering branch of the Indian Navy in various roles. He has a PhD in Reliability Engineering from IIT Mumbai and M tech from IIT (Delhi). Post his naval service he served as Associate Dean (Research) and Professor (Mechanical Engineering) in Fiji National University in Fiji Islands for five years followed by Dean(Academics) and Professor in Symbiosis Skills and Open University, Pune. He was the Dean, Faculty of Manufacturing Skills and Dean(Academics)in BSDU, Jaipur before taking over as Vice Chancellor of Oriental University Indore in February 2021./p>
+                </div>
+            </div>
+        </div>
+        <div id="artDetailsModal" class="hidden fixed top-0 left-0 w-full h-full bg-black bg-opacity-50 flex justify-center items-center">
+            <div class="bg-white p-8 rounded shadow-md">
+                <h2 class="text-2xl font-bold mb-4" id="artTitle"></h2>
+                <p id="artDescription"></p>
+                <button onclick="hideArtInfo()" class="mt-4 bg-red-500 text-white py-2 px-4 rounded">Close</button>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        function showArtInfo(title, description) {
+            document.getElementById('artTitle').innerText = title;
+            document.getElementById('artDescription').innerText = description;
+            document.getElementById('artDetailsModal').classList.remove('hidden');
+        }
+
+        function hideArtInfo() {
+            document.getElementById('artDetailsModal').classList.add('hidden');
+        }
+    </script>
+</body>
+
+</html>
